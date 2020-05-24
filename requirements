@@ -3,3 +3,4 @@ aiohttp==3.6.2
 pytest==5.4.2
 flake8
 aiohttp-devtools
+pytest-asyncio

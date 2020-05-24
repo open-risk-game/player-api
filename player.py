@@ -7,17 +7,17 @@ class Player:
     def __init__(self, username):
         self.username = username
 
-    def create(self, request):
+    async def create(self, request):
 
-        async with request.app['pool'].aqcuire() as db_conn:
+        async with request.app['pool'].acquire() as db_conn:
             cursor = await db_conn.cursor(aiomysql.DictCursor)
-            query = '''
+            query = f'''
             INSERT INTO players ()
-            VALUES ()
+            VALUES ({self.username})
             '''
-            if await cursor.exectue(query) == 0:
+            if await cursor.execute(query) == 0:
                 response = {'error': 'player not created'}
-                return web.json_response(response)
+                return web.Response(response)
             await db_conn.commit()
         return web.Response(text='Player created')
 
