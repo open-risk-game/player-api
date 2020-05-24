@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+
+    risk-db:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: admin987
+            MYSQL_USER: admin123
+            MYSQL_PASSWORD: admin123
+            MYSQL_DATABASE: risk
+        ports:
+            - "5432:3306"
