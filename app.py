@@ -9,7 +9,8 @@ async def create_db_pool(app):
             host=os.environ.get('DB_HOST'),
             user=os.environ.get('DB_USER'),
             password=os.environ.get('DB_PASS'),
-            db=os.environ.get('DB_NAME')
+            db=os.environ.get('DB_NAME'),
+            port=int(os.environ.get('DB_PORT'))
         )
 
 app = web.Application()

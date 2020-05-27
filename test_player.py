@@ -2,7 +2,6 @@ import os
 import json
 import pytest
 import aiomysql
-from player import Player
 
 
 @pytest.fixture
@@ -30,8 +29,4 @@ class FakeRequest():
 
 @pytest.mark.asyncio
 async def test_create(pool):
-    fake_request = FakeRequest(app={'pool': pool})
-    player = Player('1')
-    actual = await player.create(fake_request)
-    expected = {'error': 'player no created'}
-    assert expected == actual
+    pass

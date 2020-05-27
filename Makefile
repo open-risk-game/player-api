@@ -1,15 +1,17 @@
 export DB_HOST?=127.0.0.1
-export DB_PASS?=admin123
-export DB_USER?=admin123
+export DB_PASS?=admin
+export DB_USER?=admin
 export DB_NAME?=risk
-export DB_PORT?=3306
+export DB_PORT?=8765
 
-
-test:
-	pytest
+up:
+	docker-compose up -d
 
 run: 
 	python app.py
+
+test:
+	pytest
 
 dev-run:
 	adev runserver .

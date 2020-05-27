@@ -1,12 +1,12 @@
 version: "3.8"
 services:
-
     risk-db:
-        image: mysql
+        container_name: risk-db
+        image: mysql:latest
         environment:
-            MYSQL_ROOT_PASSWORD: admin987
-            MYSQL_USER: admin123
-            MYSQL_PASSWORD: admin123
-            MYSQL_DATABASE: risk
+            MYSQL_ROOT_PASSWORD: 'root'
+            MYSQL_USER: 'admin'
+            MYSQL_PASSWORD: 'admin'
+            MYSQL_DATABASE: 'risk'
         ports:
-            - "5432:3306"
+            - 8765:3306
