@@ -13,6 +13,9 @@ run:
 test:
 	pytest
 
+build:
+	docker build -t player-api .
+
 dev-run:
 	adev runserver .
 
