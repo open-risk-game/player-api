@@ -23,16 +23,12 @@ class Player:
     async def get(request):
         player_id = request.rel_url.query['id']
         async with request.app['pool'].acquire() as db_conn:
+            query = f'SELECT * FROM players WHERE id = {player_id}'
             cursor = await db_conn.cursor(aiomysql.DictCursor)
-            query = f'''
-            SELECT *
-            FROM players
-            WHERE id = {player_id}
-            '''
-        await cursor.execute(query)
-        x = await cursor.fetchone()
-        data = {
-                'id': x['id'],
-                'username': x['username']
-                }
-        return web.json_response(data)
+            await cursor.execute(query)
+            result = await cursor.fetchone()
+            data = {
+                    'id': result['id'],
+                    'username': result['username']
+                    }
+            return web.json_response(data)
