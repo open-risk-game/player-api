@@ -22,18 +22,19 @@ async def pool(loop):
         yield pool
 
 
+# Faking URL object needed by requests made with aiohttp
 class FakeURL:
 
-    def __init__(self):
-        self.query = {'id': 1}
+    def __init__(self, player_id):
+        self.query = {'id': player_id}
 
 
 class FakeRequest:
 
-    def __init__(self, _raise_exception=None, _json=None, app=None):
+    def __init__(self, _raise_exception=None, _json=None, app=None, url=None):
         self._json = _json
         self.app = app or {}
-        self.rel_url = FakeURL()
+        self.rel_url = url
 
     def json(self):
         if self._raise_exception:
@@ -41,12 +42,26 @@ class FakeRequest:
         return self._json
 
 
-async def test_get_player(pool):
-    request = FakeRequest(app={'pool': pool})
+async def test_get_player_200(pool):
+    url = FakeURL(1)
+    request = FakeRequest(app={'pool': pool}, url=url)
     response = await Player.get(request)
     actual = json.loads(response.text)
     expected = {
             'id': 1,
             'username': 'Billy-Bob'
+            }
+    assert expected == actual
+
+
+async def test_get_player_404(pool):
+    player_id = 99999999999999
+    url = FakeURL(player_id)
+    request = FakeRequest(app={'pool': pool}, url=url)
+    response = await Player.get(request)
+    actual = json.loads(response.text)
+
+    expected = {
+            'Error': f'No player found with id: {player_id}'
             }
     assert expected == actual
