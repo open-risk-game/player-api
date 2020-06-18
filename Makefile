@@ -4,9 +4,6 @@ export DB_USER?=risk123
 export DB_NAME?=risk
 export DB_PORT?=3306
 
-up:
-	docker-compose up -d
-
 run: 
 	python app.py
 
@@ -19,8 +16,5 @@ build:
 dev-run:
 	adev runserver .
 
-install: install-test
-	pip install -r requirements
-
-install-test:
+install:
 	pip install -r requirements-test

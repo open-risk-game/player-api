@@ -7,6 +7,7 @@ class Player:
     def __init__(self, username):
         self.username = username
 
+    @staticmethod
     async def create(request):
 
         async with request.app['pool'].acquire() as db_conn:
@@ -20,6 +21,7 @@ class Player:
             await db_conn.commit()
         return web.Response(text='Player created')
 
+    @staticmethod
     async def get(request):
         player_id = request.rel_url.query['id']
         async with request.app['pool'].acquire() as db_conn:
