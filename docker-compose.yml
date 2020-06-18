@@ -8,5 +8,9 @@ services:
             MYSQL_USER: 'admin'
             MYSQL_PASSWORD: 'admin'
             MYSQL_DATABASE: 'risk'
+        volumes:
+          - type: bind
+            source: ./migrations
+            target: /docker-entrypoint-initdb.d
         ports:
             - 8765:3306
