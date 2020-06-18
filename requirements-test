@@ -1,3 +1,4 @@
+-r requirements
 flake8
 aiohttp-devtools
 pytest-aiohttp

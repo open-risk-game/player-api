@@ -7,7 +7,7 @@ class Player:
     def __init__(self, username):
         self.username = username
 
-    async def create(request):
+    async def create(self, request):
 
         async with request.app['pool'].acquire() as db_conn:
             data = await request.json()
@@ -20,7 +20,7 @@ class Player:
             await db_conn.commit()
         return web.Response(text='Player created')
 
-    async def get(request):
+    async def get(self, request):
         player_id = request.rel_url.query['id']
         async with request.app['pool'].acquire() as db_conn:
             query = f'SELECT * FROM players WHERE id = {player_id}'
