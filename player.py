@@ -27,8 +27,12 @@ class Player:
             cursor = await db_conn.cursor(aiomysql.DictCursor)
             await cursor.execute(query)
             result = await cursor.fetchone()
-            data = {
-                    'id': result['id'],
-                    'username': result['username']
-                    }
-            return web.json_response(data)
+            if result is None:
+                return web.json_response(
+                        {'Error': f'No player found with id: {player_id}'}
+                        )
+        data = {
+                'id': result['id'],
+                'username': result['username']
+                }
+        return web.json_response(data)
