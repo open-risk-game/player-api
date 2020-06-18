@@ -1,14 +1,8 @@
 export DB_HOST?=127.0.0.1
-export DB_PASS?=admin
-export DB_USER?=admin
+export DB_PASS?=risk123
+export DB_USER?=risk123
 export DB_NAME?=risk
 export DB_PORT?=3306
-
-up:
-	docker-compose up -d
-
-down:
-	docker-compose down
 
 run: 
 	python app.py
