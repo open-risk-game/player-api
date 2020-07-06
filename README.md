@@ -2,6 +2,14 @@
 
 For handling player actions.
 
+## Overview
+
+### GET
+
+#### Creat new player
+
+**Response**
+
 ## Development
 
 Test against your local `MySQL` instance. See the `game-database` repository
