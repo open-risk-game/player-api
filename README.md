@@ -8,6 +8,8 @@ For handling player actions.
 
 #### Creat new player
 
+`curl "http://<host>/v0
+
 **Response**
 
 ## Development
