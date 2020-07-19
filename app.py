@@ -2,6 +2,7 @@ import os
 import aiomysql
 from aiohttp import web
 from player import Player
+import player
 
 DB_HOST = os.environ.get('DB_HOST')
 DB_USER = os.environ.get('DB_USER')
@@ -25,7 +26,8 @@ app.on_startup.append(create_db_pool)
 
 app.add_routes([
         web.post('/v0/player/create', Player.create),
-        web.get('/v0/player', Player.get)
+        web.get('/v0/player', Player.get),
+        web.get('/v0/board-players', player.get_on_board),
         ])
 
 if __name__ == "__main__":
