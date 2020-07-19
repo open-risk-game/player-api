@@ -46,7 +46,7 @@ async def get_on_board(request):
     board_id = params['id']
     async with request.app['pool'].acquire() as db_conn:
         query = f'''
-            SELECT player.id, username, created, wins, draws, losses
+            SELECT player.id, username, colour, created, wins, draws, losses
             FROM player
             INNER JOIN game ON 
                 game.player_id = player.id 
