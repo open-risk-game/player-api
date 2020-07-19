@@ -1,3 +1,4 @@
+import json
 import aiomysql
 from aiohttp import web
 
@@ -38,3 +39,31 @@ class Player:
                 'username': result['username']
                 }
         return web.json_response(data)
+
+
+async def get_on_board(request):
+    params = request.rel_url.query
+    board_id = params['id']
+    async with request.app['pool'].acquire() as db_conn:
+        query = f'''
+            SELECT player.id, username, wins, draws, losses
+            FROM player
+            INNER JOIN game ON 
+                game.player_id = player.id 
+                AND game.board_id = {board_id}
+        '''
+        cursor = await db_conn.cursor(aiomysql.DictCursor)
+        await cursor.execute(query)
+        result = await cursor.fetchall()
+        if result is None:
+            return web.json_response(
+                    {'Error': f'No player found on board {board_id}'}
+                    )
+    players = []
+    for player in result:
+        p = {
+                "id": player.get('id'),
+                "username": player.get('username')
+                }
+        players.append(p)
+    return web.json_response(players)
