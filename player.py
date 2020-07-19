@@ -46,7 +46,7 @@ async def get_on_board(request):
     board_id = params['id']
     async with request.app['pool'].acquire() as db_conn:
         query = f'''
-            SELECT player.id, username, wins, draws, losses
+            SELECT player.id, username, created, wins, draws, losses
             FROM player
             INNER JOIN game ON 
                 game.player_id = player.id 
@@ -63,7 +63,12 @@ async def get_on_board(request):
     for player in result:
         p = {
                 "id": player.get('id'),
-                "username": player.get('username')
+                "username": player.get('username'),
+                "created": str(player.get('created')),
+                "colour": player.get('colour'),
+                "wins": player.get('wins'),
+                "draws": player.get('draws'),
+                "losses": player.get('losses')
                 }
         players.append(p)
     return web.json_response(players)
